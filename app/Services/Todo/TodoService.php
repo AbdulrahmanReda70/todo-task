@@ -63,4 +63,28 @@ class TodoService
 
         return $task->delete();
     }
-}
+
+    public function searchTasks(array $criteria)
+    {
+        $query = Auth::user()->tasks();
+
+        if (isset($criteria['status'])) {
+            $query->where('status', $criteria['status']);
+        }
+
+        if (isset($criteria['due_date'])) {
+            $query->whereDate('due_date', $criteria['due_date']);
+        }
+
+        if (isset($criteria['keyword'])) {
+            $keyword = $criteria['keyword'];
+            $query->where(function ($q) use ($keyword) {
+                $q->where('title', 'like', "%$keyword%")
+                    ->orWhere('description', 'like', "%$keyword%");
+            });
+        }
+
+        $tasks = $query->latest()->paginate();
+        return TaskResource::collection($tasks);
+    }
+};

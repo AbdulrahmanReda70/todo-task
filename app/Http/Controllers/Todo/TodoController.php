@@ -7,6 +7,7 @@ use App\Http\Requests\Todo\CreateTaskRequest;
 use App\Http\Requests\Todo\UpdateTaskRequest;
 use App\Models\Task;
 use App\Services\Todo\TodoService;
+use Illuminate\Http\Request;
 
 class TodoController extends Controller
 {
@@ -55,5 +56,12 @@ class TodoController extends Controller
         }
 
         return response()->json(['message' => 'Task deleted successfully'], 200);
+    }
+
+    public function search(Request $request, TodoService $todoService)
+    {
+        $criteria = $request->only(['status', 'due_date', 'keyword']);
+        $tasks = $todoService->searchTasks($criteria);
+        return response()->json($tasks, 200);
     }
 }

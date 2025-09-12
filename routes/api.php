@@ -12,5 +12,6 @@ Route::post('/signin', [AuthController::class, 'signin']);
 
 // Protected routes (require authentication)
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/tasks/search', [TodoController::class, 'search']);
     Route::apiResource('tasks', TodoController::class);
 });
