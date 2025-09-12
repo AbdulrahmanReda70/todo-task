@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->enum('status', ['completed', 'pending', 'in-progress'])->default('in-progress');
             $table->date('due_date')->nullable()->index(); // will help in sorting/filtering by due date
             $table->timestamps();
-            $table->index(['user_id', 'status']); // will help in querying tasks by user and statuss
+            $table->index(['user_id', 'status']); // will help in querying tasks by user and status
         });
     }
 
