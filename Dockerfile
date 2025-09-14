@@ -1,17 +1,24 @@
 FROM php:8.2
 
-# Install system dependencies + Node.js
+# Configure DNS for better network connectivity
+RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && \
+    echo "nameserver 8.8.4.4" >> /etc/resolv.conf
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    git curl unzip libpng-dev libonig-dev libxml2-dev zip \
-    nodejs npm \
+    git curl unzip libpng-dev libonig-dev libxml2-dev zip gnupg \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# fix network issues with npm
-RUN npm config set registry https://registry.npmjs.org/ \
+# Install Node.js from NodeSource repository for better reliability
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
+
+# Configure npm with better timeout and retry settings
+RUN npm config set timeout 120000 \
+    && npm config set fetch-retry-mintimeout 20000 \
+    && npm config set fetch-retry-maxtimeout 120000 \
     && npm config set fetch-retries 5 \
-    && npm config set fetch-retry-factor 2 \
-    && npm config set fetch-retry-maxtimeout 600000 \
-    && npm config set fetch-timeout 600000
+    && npm config set registry https://registry.npmjs.org/
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
