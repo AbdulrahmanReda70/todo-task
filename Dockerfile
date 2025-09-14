@@ -3,7 +3,7 @@ FROM php:8.2
 # Install system dependencies + Node.js
 RUN apt-get update && apt-get install -y \
     git curl unzip libpng-dev libonig-dev libxml2-dev zip \
-    nodejs npm \
+    nodejs npm netcat-traditional \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Install Composer
@@ -17,7 +17,7 @@ COPY composer.json composer.lock package*.json* ./
 COPY . .
 
 # Install PHP and Node dependencies
-RUN composer install --no-dev --optimize-autoloader \
+RUN composer install --optimize-autoloader \
     && npm install
 
 
