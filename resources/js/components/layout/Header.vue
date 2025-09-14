@@ -16,16 +16,34 @@
         <div class="flex items-center">
             <CheckSquare class="w-6 h-6 text-blue-600" />
         </div>
+
+        <!-- Signout Button -->
+        <button
+            @click="handleSignout"
+            class="p-2 rounded-lg hover:bg-red-50 transition-colors duration-200"
+            title="Sign Out"
+        >
+            <LogOut class="w-5 h-5 text-red-600" />
+        </button>
     </header>
 </template>
 
 <script setup>
-import { PanelLeft, CheckSquare } from "lucide-vue-next";
+import { PanelLeft, CheckSquare, LogOut } from "lucide-vue-next";
+import { useRouter } from "vue-router";
 import { useScreenSize } from "@/composables/useScreenSize";
+import AuthService from "../../services/AuthService";
 
 const { isMobile } = useScreenSize();
+const router = useRouter();
+const authService = new AuthService();
 
 defineProps({
     toggleSidebar: Function,
 });
+
+const handleSignout = () => {
+    authService.signout();
+    router.push("/login");
+};
 </script>
