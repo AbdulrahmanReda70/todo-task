@@ -7,7 +7,6 @@ export default {
         "./resources/**/*.ts",
         "./resources/**/*.jsx",
         "./resources/**/*.tsx",
-        "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,vue}",
     ],
     theme: {
         extend: {},
