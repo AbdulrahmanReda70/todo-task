@@ -1,9 +1,5 @@
 FROM php:8.2
 
-# Configure DNS for better network connectivity
-RUN echo "nameserver 8.8.8.8" > /etc/resolv.conf && \
-    echo "nameserver 8.8.4.4" >> /etc/resolv.conf
-
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git curl unzip libpng-dev libonig-dev libxml2-dev zip gnupg \
