@@ -87,4 +87,16 @@ class TodoService
         $tasks = $query->latest()->paginate();
         return TaskResource::collection($tasks);
     }
+
+    /**
+     * Get tasks by status for the authenticated user.
+     */
+    public function getTasksByStatus(string $status)
+    {
+        $tasks = Auth::user()->tasks()
+            ->where('status', $status)
+            ->latest()
+            ->get();
+        return TaskResource::collection($tasks);
+    }
 };

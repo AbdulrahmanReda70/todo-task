@@ -64,4 +64,22 @@ class TodoController extends Controller
         $tasks = $todoService->searchTasks($criteria);
         return response()->json($tasks, 200);
     }
+
+    public function pending(TodoService $todoService)
+    {
+        $tasks = $todoService->getTasksByStatus('pending');
+        return response()->json($tasks, 200);
+    }
+
+    public function inProgress(TodoService $todoService)
+    {
+        $tasks = $todoService->getTasksByStatus('in-progress');
+        return response()->json($tasks, 200);
+    }
+
+    public function completed(TodoService $todoService)
+    {
+        $tasks = $todoService->getTasksByStatus('completed');
+        return response()->json($tasks, 200);
+    }
 }
