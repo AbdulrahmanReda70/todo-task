@@ -11,7 +11,7 @@ RUN npm config set registry https://registry.npmjs.org/ \
     && npm config set fetch-retries 5 \
     && npm config set fetch-retry-factor 2 \
     && npm config set fetch-retry-maxtimeout 600000 \
-    && npm config set network-timeout 600000
+    && npm config set fetch-timeout 600000
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
