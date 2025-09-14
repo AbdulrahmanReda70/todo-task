@@ -1,19 +1,21 @@
-import { defineConfig } from 'vite'
-import laravel from 'laravel-vite-plugin'
-import vue from '@vitejs/plugin-vue'
-import path from 'path'
+import { defineConfig } from "vite";
+import laravel from "laravel-vite-plugin";
+import vue from "@vitejs/plugin-vue";
+import tailwindcss from "@tailwindcss/vite";
+import path from "path";
 
 export default defineConfig({
-  plugins: [
-    laravel({
-      input: ['resources/js/app.js'],
-      refresh: true, // enables blade + hot reload
-    }),
-    vue(),
-  ],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'resources/js'),
+    plugins: [
+        laravel({
+            input: ["resources/js/app.js"],
+            refresh: true, // enables blade + hot reload
+        }),
+        vue(),
+        tailwindcss(),
+    ],
+    resolve: {
+        alias: {
+            "@": path.resolve(__dirname, "resources/js"),
+        },
     },
-  },
-})
+});
