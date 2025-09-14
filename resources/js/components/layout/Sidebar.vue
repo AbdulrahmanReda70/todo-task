@@ -8,7 +8,7 @@
         <div class="p-4 border-b border-gray-100">
             <div class="flex items-center gap-x-2">
                 <img
-                    src="https://i.pravatar.cc/32"
+                    src="https://i.pravatar.cc"
                     class="w-6 h-6 rounded-full"
                     alt="User Avatar"
                 />
