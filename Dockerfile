@@ -14,11 +14,11 @@ WORKDIR /var/www
 # Copy dependency files first (for caching)
 COPY composer.json composer.lock package*.json* ./
 
+COPY . .
+
 # Install PHP and Node dependencies
 RUN composer install --no-dev --optimize-autoloader \
     && npm install
 
-# Then copy the full project
-COPY . .
 
 EXPOSE 8000 5173
