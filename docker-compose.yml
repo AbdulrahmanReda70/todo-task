@@ -19,7 +19,8 @@ services:
               npm run dev
             "
         depends_on:
-            - db
+            db:
+                condition: service_healthy
 
     db:
         image: mysql:8
@@ -33,6 +34,10 @@ services:
             - "3307:3306"
         volumes:
             - dbdata:/var/lib/mysql
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            interval: 5s
+            retries: 10
 
 volumes:
     dbdata:
