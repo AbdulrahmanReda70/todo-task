@@ -33,6 +33,18 @@ class TodoService {
         }
         */
     }
+
+    async getPending() {
+        return (await api.get("/tasks/pending")).data;
+    }
+
+    async getInProgress() {
+        return (await api.get("/tasks/in-progress")).data;
+    }
+
+    async getCompleted() {
+        return (await api.get("/tasks/completed")).data;
+    }
 }
 
 export default TodoService;
