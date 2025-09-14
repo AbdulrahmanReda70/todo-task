@@ -24,9 +24,7 @@ import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import Header from "./components/layout/Header.vue";
 import Sidebar from "./components/layout/Sidebar.vue";
-import { useScreenSize } from "@/composables/useScreenSize";
 
-const { isMobile } = useScreenSize();
 const route = useRoute();
 
 const isSidebarOpen = ref(false);
