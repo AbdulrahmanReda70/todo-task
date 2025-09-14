@@ -1,30 +1,46 @@
-<script setup>
-import { ref, onMounted } from "vue";
-import { useFetchAllTasks } from "./composables/read/useFetchAllTasks";
-import { useFetchTaskById } from "./composables/read/useFetchTaskById";
-
-const { fetchAllTasks, allTasks, fetchAllTasksLoading } = useFetchAllTasks();
-const { fetchTaskById, fetchTaskByIdError, fetchTaskByIdLoading, taskById } =
-    useFetchTaskById();
-onMounted(async () => {
-    fetchAllTasks();
-});
-</script>
-
 <template>
-    <div>
-        <h2>Tasks</h2>
-        <p v-if="fetchAllTasksLoading">Loading...</p>
-        <ul v-else>
-            <li v-for="t in allTasks" :key="t.id">
-                {{ t.title }}
-            </li>
-        </ul>
-    </div>
+    <div class="min-h-screen" :class="isAuthPage ? 'bg-white' : 'bg-gray-50'">
+        <!-- Header - Only on mobile and not on auth pages -->
+        <Header v-if="!isAuthPage" :toggle-sidebar="toggleSidebar" />
 
-    <div>
-        <p v-if="fetchTaskByIdLoading">Loading.VVVV..</p>
-        <p v-else-if="taskById">{{ taskById?.title }}</p>
+        <div class="flex">
+            <!-- Sidebar - Only show when not on auth pages -->
+            <Sidebar
+                v-if="!isAuthPage"
+                :is-open="isSidebarOpen"
+                @close="closeSidebar"
+            />
+
+            <!-- Main Content -->
+            <main :class="['transition-all duration-300 ease-in-out grow']">
+                <RouterView />
+            </main>
+        </div>
     </div>
-    <button @click="fetchTaskById(3)">fetch Post id = 3</button>
 </template>
+
+<script setup>
+import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
+import Header from "./components/layout/Header.vue";
+import Sidebar from "./components/layout/Sidebar.vue";
+import { useScreenSize } from "@/composables/useScreenSize";
+
+const { isMobile } = useScreenSize();
+const route = useRoute();
+
+const isSidebarOpen = ref(false);
+
+// Check if current route is an auth page
+const isAuthPage = computed(() => {
+    return route.path === "/login" || route.path === "/register";
+});
+
+const toggleSidebar = () => {
+    isSidebarOpen.value = !isSidebarOpen.value;
+};
+
+const closeSidebar = () => {
+    isSidebarOpen.value = false;
+};
+</script>
