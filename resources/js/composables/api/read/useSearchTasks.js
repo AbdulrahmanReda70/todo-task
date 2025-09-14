@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import TodoService from "../../services/TodoService";
+import TodoService from "../../../services/TodoService";
 
 export function useSearchTasks() {
     const todoService = new TodoService();
