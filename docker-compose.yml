@@ -10,14 +10,11 @@ services:
         ports:
             - "8000:8000" # Laravel backend
             - "5173:5173" # Vite dev server
-        dns:
-            - 8.8.8.8
-            - 8.8.4.4
         command: >
             sh -c "
               composer install &&
               if ! grep -q 'APP_KEY=base64:' .env; then php artisan key:generate; fi &&
-              (npm install || npm install --verbose) &&
+              npm install &&
               php artisan migrate &&
               (php artisan serve --host=0.0.0.0 --port=8000 &) &&
               npm run dev
