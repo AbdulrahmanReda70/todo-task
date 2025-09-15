@@ -2,6 +2,15 @@
 
 A Laravel-based task management application with Vue.js frontend.
 
+## 📚 API Documentation
+
+Complete API documentation is available in [`API_DOCUMENTATION.md`](./API_DOCUMENTATION.md). It includes:
+
+-   Authentication endpoints (signup/signin)
+-   Task management CRUD operations
+-   Search and filtering capabilities
+-   Request/response examples
+
 ## Installation & Running with Docker
 
 ### Prerequisites
