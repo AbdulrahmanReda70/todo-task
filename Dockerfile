@@ -14,11 +14,16 @@ WORKDIR /var/www
 # Copy dependency files first (for caching)
 COPY composer.json composer.lock package*.json* ./
 
+# Copy the rest of the application
 COPY . .
 
-# Install PHP and Node dependencies
-RUN composer install --optimize-autoloader \
-    && npm install
+# Install PHP dependencies
+RUN composer install --optimize-autoloader
 
+# Install Node dependencies
+RUN npm install
+
+# Make sure node_modules/.bin is in PATH
+ENV PATH="/var/www/node_modules/.bin:${PATH}"
 
 EXPOSE 8000 5173
