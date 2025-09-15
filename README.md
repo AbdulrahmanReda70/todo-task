@@ -42,7 +42,7 @@ Complete API documentation is available in [`API_DOCUMENTATION.md`](./API_DOCUME
 
 3. **Build and start containers:**
     ```bash
-    docker-compose up --build
+    docker compose up --build # docker-compose up --build in older versions
     ```
 
 The application will automatically:
