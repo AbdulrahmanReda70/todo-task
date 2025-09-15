@@ -24,7 +24,7 @@ Complete API documentation is available in [`API_DOCUMENTATION.md`](./API_DOCUME
 
     ```bash
     git clone https://github.com/AbdulrahmanReda70/todo-task.git
-    cd laravel-task
+    cd todo-task
     ```
 
 2. **Create environment file:**
