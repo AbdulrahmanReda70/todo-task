@@ -20,7 +20,7 @@ services:
               sleep 5 &&
               php artisan migrate &&
               ( php artisan serve --host=0.0.0.0 --port=8000 & ) &&
-              npx vite --host=0.0.0.0
+              npx vite --host=0.0.0.0 # Start Vite dev server
             "
         depends_on:
             db:
